@@ -1,0 +1,16 @@
+{
+    "DB_CONNECTION":{
+        "URI":"mongodb+srv://user:user@cluster0.bgtgu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    },
+    "SERVER_CONFIG":{
+        "PORT":5000
+    },
+    "JWT_CONFIG":{
+    "SECRET": "MYAPP"
+    },
+    "CLOUDINARY_CONFIG":{
+        "CLOUD_NAME":"dhscbiik5",
+        "API_KEY":"518937362822654",
+        "API_SECRET":"73R0pk0wo6WQiv2oFat_MtgKMt4"
+    }
+}

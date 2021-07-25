@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+p{
+  color:blue;
+  font-size: 20px;
+  padding: 1em;
+}
+.social-links{
+  display:flex;
+  justify-content: space-between;
+  width: 50%;
+  margin:auto;
+}
+.social-links i{
+  color:darkblue;
+  font-size: 3em;
+  padding:5px;
+}
+.icons{
+  color:darkblue;
+  font-size: 3em;
+  padding:10px;
+}
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
