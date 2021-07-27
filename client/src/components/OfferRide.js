@@ -12,8 +12,28 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
+import { useDispatch } from "react-redux";
+import { addTrip } from "../redux/actions/tripActions";
 
 const OfferRide = () => {
+  const dispatch = useDispatch();
+  const [newTrip, setNewTrip] = useState({
+    from: "",
+    to: "",
+    from_lat: null,
+    from_lng: null,
+    to_lng: null,
+    from_lat: null,
+    CarModel: "",
+    price: null,
+    dateTime: "",
+    seatingCapacity: null,
+    tripGender: "",
+    luggage: false,
+    music: false,
+    smoking: false,
+    airConditioned: false,
+  });
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [fromCoordinate, setFromCoordinate] = useState({
@@ -28,10 +48,12 @@ const OfferRide = () => {
   const suggestionSelectFrom = async (result, lat, lng, text) => {
     setFrom(result);
     setFromCoordinate({ lat: lat, lng: lng });
+    setNewTrip({ ...newTrip, from: result, from_lat: lat, from_lng: lng });
   };
   const suggestionSelectTo = async (result, lat, lng, text) => {
     setTo(result);
     setToCoordinate({ lat: lat, lng: lng });
+    setNewTrip({ ...newTrip, to: result, to_lat: lat, to_lng: lng });
   };
 
   //seating number
@@ -40,6 +62,7 @@ const OfferRide = () => {
 
   const handleChangeSeating = (event) => {
     setSeating(event.target.value);
+    setNewTrip({ ...newTrip, seatingCapacity: event.target.value });
   };
 
   const handleClose = () => {
@@ -54,6 +77,7 @@ const OfferRide = () => {
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    setNewTrip({ ...newTrip, tripGender: event.target.value });
   };
   //luggage
   const [luggage, setLuggage] = useState({
@@ -62,6 +86,7 @@ const OfferRide = () => {
 
   const handleChangeCheckLuggage = (event) => {
     setLuggage({ ...luggage, [event.target.name]: event.target.checked });
+    setNewTrip({ ...newTrip, luggage: event.target.checked });
   };
   //music
   const [music, setMusic] = useState({
@@ -70,6 +95,7 @@ const OfferRide = () => {
 
   const handleChangeCheckMusic = (event) => {
     setMusic({ ...music, [event.target.name]: event.target.checked });
+    setNewTrip({ ...newTrip, music: event.target.checked });
   };
   //smoking
   const [smoking, setSmoking] = useState({
@@ -78,6 +104,7 @@ const OfferRide = () => {
 
   const handleChangeCheckSmoking = (event) => {
     setSmoking({ ...smoking, [event.target.name]: event.target.checked });
+    setNewTrip({ ...newTrip, smoking: event.target.checked });
   };
   //airConditioned
   const [airConditioned, setAirConditioned] = useState({
@@ -89,6 +116,12 @@ const OfferRide = () => {
       ...airConditioned,
       [event.target.name]: event.target.checked,
     });
+    setNewTrip({ ...newTrip, airConditioned: event.target.checked });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addTrip(newTrip));
   };
 
   return (
@@ -103,6 +136,7 @@ const OfferRide = () => {
         "lat: " + toCoordinate.lat,
         "lng: " + toCoordinate.lng
       )}
+      {console.log(newTrip)}
       <from>
         <Container>
           <br />
@@ -137,9 +171,23 @@ const OfferRide = () => {
                 resetSearch={false}
               />
 
-              <Form.Control type="text" placeholder="Car Model" />
+              <Form.Control
+                name="carModel"
+                type="text"
+                placeholder="Car Model"
+                onChange={(e) =>
+                  setNewTrip({ ...newTrip, carModel: e.target.value })
+                }
+              />
               <br />
-              <Form.Control type="text" placeholder="Price by place (DT)" />
+              <Form.Control
+                name="price"
+                type="text"
+                placeholder="Price by place (DT)"
+                onChange={(e) =>
+                  setNewTrip({ ...newTrip, price: e.target.value })
+                }
+              />
               <br />
               <Row>
                 <Col xs={6}>
@@ -147,10 +195,13 @@ const OfferRide = () => {
                     id="datetime-local"
                     label=" Trip Date/Time"
                     type="datetime-local"
-                    defaultValue="2017-05-24T10:30"
+                    defaultValue="2021-01-01T10:30"
                     InputLabelProps={{
                       shrink: true,
                     }}
+                    onChange={(e) =>
+                      setNewTrip({ ...newTrip, dateTime: e.target.value })
+                    }
                   />
                 </Col>
                 <Col xs={6}>
@@ -246,7 +297,11 @@ const OfferRide = () => {
             <Col xs={6} md={4}></Col>
             <Col xs={6} md={4}></Col>
             <Col xs={6} md={4}>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleSubmit}
+              >
                 Validate
               </Button>
             </Col>

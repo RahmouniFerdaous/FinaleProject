@@ -1,82 +1,95 @@
-const Trip = require ('../models/Trip')
+const Trip = require("../models/Trip");
 
 //Post Trip
 
-const addTrip = async (req,res) => {
-    try{
+const addTrip = async (req, res) => {
+  try {
+    const {
+      carModel,
+      seatingCapacity,
+      price,
+      dateTime,
+      from,
+      to,
+      from_lat,
+      from_lng,
+      to_lat,
+      to_lng,
+      tripGender,
+      luggage,
+      music,
+      smoking,
+      airConditioned,
+    } = req.body;
 
-const {carModel,seatingCapacity,price,dateTime,from,to,from_lat,from_lng,to_lat,to_lng,tripGender,
-    luggage,music,smoking,airConditioned} = req.body
-
-    const newTrip = new Trip ({
-        owner:req.userId,
-        carModel,
-        seatingCapacity,
-        price,
-        dateTime,
-        from,
-        to,
-        from_lat,
-        from_lng,
-        to_lat,
-        to_lng,
-        tripGender,
-        luggage,music,smoking,airConditioned
-    })
+    const newTrip = new Trip({
+      owner: req.userId,
+      carModel,
+      seatingCapacity,
+      price,
+      dateTime,
+      from,
+      to,
+      from_lat,
+      from_lng,
+      to_lat,
+      to_lng,
+      tripGender,
+      luggage,
+      music,
+      smoking,
+      airConditioned,
+    });
     //save db
-    const trip = await newTrip.save()
+    const savedTrip = await newTrip.save();
     //send to front
-    res.json(trip)
-    }
-    catch(err){
-        res.status(500).json({ errors: [ {msg:err.message} ] })
-    }
-}
+    res.json(savedTrip);
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+};
 
 //Get ALL trip
-const getAllTrip = async (req,res) => {
-    try{
-        const posts = await Trip.find()
-        res.json (posts)
-    }
-    catch(err) {
-        res.status(500).json({ errors: [ {msg:err.message} ] })
-    }
-}
+const getAllTrip = async (req, res) => {
+  try {
+    const posts = await Trip.find();
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+};
 
 //Get ALL trip
-const getMyTrip = async (req,res) => {
-    try{
-        const posts = await Trip.find({owner:req.userId})
-        res.json (posts)
-    }
-    catch(err) {
-        res.status(500).json({ errors: [ {msg:err.message} ] })
-    }
-}
+const getMyTrip = async (req, res) => {
+  try {
+    const posts = await Trip.find({ owner: req.userId });
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+};
 
 //Upadted Trip
 
-const updateTrip = async (req,res) => {
-    try{
-         const updatedTrip = await Trip.findByIdAndUpdate(req.params.id,{...req.body})
-         res.json (updatedTrip)
-    }
-    catch(err){
-        res.status(500).json({ errors: [ {msg:err.message} ] })
-    }
-    } 
+const updateTrip = async (req, res) => {
+  try {
+    const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, {
+      ...req.body,
+    });
+    res.json(updatedTrip);
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+};
 
 //Delete Trip
-const deleteTrip = async (req,res) => {
-try{
-     const deletedTrip = await Trip.findByIdAndDelete(req.params.id)
-     res.json (deletedTrip)
-}
-catch(err){
-    res.status(500).json({ errors: [ {msg:err.message} ] })
-}
-}
+const deleteTrip = async (req, res) => {
+  try {
+    const deletedTrip = await Trip.findByIdAndDelete(req.params.id);
+    res.json(deletedTrip);
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+};
 
-
-module.exports = {addTrip,getAllTrip,getMyTrip,updateTrip,deleteTrip}
+module.exports = { addTrip, getAllTrip, getMyTrip, updateTrip, deleteTrip };

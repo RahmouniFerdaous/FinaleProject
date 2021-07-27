@@ -48,7 +48,7 @@ const RegitserPage = () => {
     password: "",
     age: "",
     phone: "",
-    profilePic: null,
+    ProfilePic:null
   });
   const handleImageChange = (e) => {
     if (e.target.files.length) {
@@ -60,7 +60,7 @@ const RegitserPage = () => {
           reader.readAsDataURL(result);
           reader.onloadend = () => {
             setSelectedImage(reader.result);
-            setInfo({ profilePic: reader.result });
+            setInfo({ ...info, profilePic: reader.result });
           };
         },
       });
@@ -168,13 +168,12 @@ const RegitserPage = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <image
-                name="image"
-                src={selectedImage || "/images/avatar.jpg"}
-              ></image>
+              <img name="image" src={selectedImage || "/images/avatar.jpg"} />
+              <br />
               <input
                 type="file"
                 name="profilePic"
+                accept="images/*"
                 onChange={handleImageChange}
               />
             </Grid>
