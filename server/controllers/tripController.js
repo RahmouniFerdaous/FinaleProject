@@ -50,10 +50,10 @@ const addTrip = async (req, res) => {
 };
 
 //Get ALL trip
-const getAllTrip = async (req, res) => {
+const getAllTrips = async (req, res) => {
   try {
-    const posts = await Trip.find();
-    res.json(posts);
+    const trips = await Trip.find();
+    res.json(trips);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });
   }
@@ -62,8 +62,8 @@ const getAllTrip = async (req, res) => {
 //Get ALL trip
 const getMyTrip = async (req, res) => {
   try {
-    const posts = await Trip.find({ owner: req.userId });
-    res.json(posts);
+    const trips = await Trip.find({ owner: req.userId });
+    res.json(trips);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });
   }
@@ -92,4 +92,4 @@ const deleteTrip = async (req, res) => {
   }
 };
 
-module.exports = { addTrip, getAllTrip, getMyTrip, updateTrip, deleteTrip };
+module.exports = { addTrip, getAllTrips, getMyTrip, updateTrip, deleteTrip };

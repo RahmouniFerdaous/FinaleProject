@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Image, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
 import { getProfile } from "../redux/actions/authActions";
+import { getMyTrip } from "../redux/actions/tripActions";
 
 const ProfilePage = () => {
   //selector state
@@ -12,6 +13,7 @@ const ProfilePage = () => {
   // component did mount
   useEffect(() => {
     dispatch(getProfile());
+    dispatch(getMyTrip());
   }, []);
   return (
     <div>

@@ -1,6 +1,8 @@
 import {LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILED,GET_PROFILE_REQUEST,GET_PROFILE_SUCCESS,GET_PROFILE_FAILED,
   REGISTER_REQUEST,REGISTER_SUCCESS,REGISTER_FAILED,LOGOUT} from '../actions/authTypes'
 
+import {GET_TRIP_REQUEST,GET_TRIP_SUCCESS,GET_TRIP_FAILED} from '../actions/tripTypes'
+
 const initState= {
     token: localStorage.getItem('token'),
     isAuth: localStorage.getItem('isAuth'),
@@ -17,6 +19,7 @@ switch (type) {
   case LOGIN_REQUEST :
   case REGISTER_REQUEST:
   case GET_PROFILE_REQUEST:
+  case GET_TRIP_REQUEST:
     return {
       ...state,
       isLoading:true,
@@ -40,6 +43,17 @@ switch (type) {
         user:payload.user,
         token:payload.token
       }
+      case GET_TRIP_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                errors: null,
+                user: {
+                    ...state.user,
+                    trips: payload
+                }
+            }
+      case GET_TRIP_FAILED:      
       case GET_PROFILE_SUCCESS :
         localStorage.setItem('user',JSON.stringify(payload))
         return {

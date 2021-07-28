@@ -4,6 +4,8 @@ import axios from 'axios'
 import {prefix} from '../../helpers/constant'
 import {setToken} from '../../helpers/helpers'
 
+import { getMyTrip } from "./tripActions";
+
 //asynchrone fct login 
 export const login = (info) => async (dispatch) => {
   dispatch ({type:LOGIN_REQUEST}) //spinner : waiting for info
@@ -49,6 +51,7 @@ dispatch ({
   type:GET_PROFILE_SUCCESS,
   payload:data
 })
+dispatch(getMyTrip())
 }
 catch (err) {
   dispatch({

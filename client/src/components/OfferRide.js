@@ -137,7 +137,6 @@ const OfferRide = () => {
         "lng: " + toCoordinate.lng
       )}
       {console.log(newTrip)}
-      <from>
         <Container>
           <br />
           <Typography
@@ -307,7 +306,6 @@ const OfferRide = () => {
             </Col>
           </Row>
         </Container>
-      </from>
     </div>
   );
 };

@@ -4,7 +4,7 @@ const {tokenMiddleware,checkTripOwner} = require ('../middlewares/tokenMiddlewar
 
 
 
-router.get('/alltrips',tripController.getAllTrip)
+router.get('/alltrips',tripController.getAllTrips)
 router.post('/addtrip',tokenMiddleware,tripController.addTrip)
 router.get('/mytrips',tokenMiddleware,tripController.getMyTrip)
 router.put('/updatetrip/:id',tokenMiddleware,checkTripOwner,tripController.updateTrip)
