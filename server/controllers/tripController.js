@@ -52,7 +52,7 @@ const addTrip = async (req, res) => {
 //Get ALL trip
 const getAllTrips = async (req, res) => {
   try {
-    const trips = await Trip.find();
+    const trips = await Trip.find().populate("owner");
     res.json(trips);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });
@@ -62,7 +62,7 @@ const getAllTrips = async (req, res) => {
 //Get ALL trip
 const getMyTrip = async (req, res) => {
   try {
-    const trips = await Trip.find({ owner: req.userId });
+    const trips = await Trip.find({ owner: req.userId }).populate("owner");
     res.json(trips);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });

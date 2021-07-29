@@ -3,26 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { Image, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
 import { getProfile } from "../redux/actions/authActions";
-import { getMyTrip } from "../redux/actions/tripActions";
+// import { getMyTrip } from "../redux/actions/tripActions";
 
 const ProfilePage = () => {
   //selector state
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth)
+  // const  trips = useSelector(state => state.trips)
   //dispatch action
   const dispatch = useDispatch();
   // component did mount
   useEffect(() => {
-    dispatch(getProfile());
-    dispatch(getMyTrip());
+    dispatch(getProfile());   //   dispatch(getMyTrip());
   }, []);
   return (
     <div>
       <Card style={{ width: "18rem" }}>
-        <Image
-          src={auth.user.profilePic.url || "/images/avatar.jpg"}
+        { auth.user.profilePic ?   
+         <Image
+          src={auth.user.profilePic.url}
           alt="profile picture"
           roundedCircle
-        />
+        /> 
+        :
+        <Image
+          src="/images/avatar.jpg"
+          alt="profile picture"
+          roundedCircle
+        /> 
+        }
         <Card.Body>
           <Card.Title>
             {auth.user.firstName} {auth.user.lastName}

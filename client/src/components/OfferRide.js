@@ -126,188 +126,193 @@ const OfferRide = () => {
 
   return (
     <div>
-      {console.log(
-        "from: " + from,
-        "lat: " + fromCoordinate.lat,
-        "lng: " + fromCoordinate.lng
-      )}
-      {console.log(
-        "to: " + to,
-        "lat: " + toCoordinate.lat,
-        "lng: " + toCoordinate.lng
-      )}
-      {console.log(newTrip)}
-        <Container>
-          <br />
-          <Typography
-            component="h1"
-            variant="h3"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-          >
-            Publish a CarPooling
-          </Typography>
-          <br />
-          <Row>
-            <Col xs={6}>
-              <MapboxAutocomplete
-                publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
-                inputClass="form-control search"
-                placeholder="From ..."
-                onSuggestionSelect={suggestionSelectFrom}
-                value={from}
-                country="tn"
-                resetSearch={false}
-              />
-              <MapboxAutocomplete
-                publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
-                inputClass="form-control search"
-                placeholder="To ..."
-                onSuggestionSelect={suggestionSelectTo}
-                value={to}
-                country="tn"
-                resetSearch={false}
-              />
+      <Container
+        style={{
+          background: "#EECDA3",
+          background: "-webkit-linear-gradient(to right, #EF629F, #EECDA3)",
+          background: "linear-gradient(to right, #EF629F, #EECDA3)",
+          marginTop: "10px",
+          paddingBottom: "10px",
+        }}
+      >
+        <br />
+        <Typography
+          component="h1"
+          variant="h3"
+          align="center"
+          color="textPrimary"
+          gutterBottom
+        >
+          Publish a CarPooling
+        </Typography>
+        <br />
+        <Row>
+          <Col xs={6}>
+            <MapboxAutocomplete
+              publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
+              inputClass="form-control search"
+              placeholder="From ..."
+              onSuggestionSelect={suggestionSelectFrom}
+              value={from}
+              country="tn"
+              resetSearch={false}
+              required
+            />
+            <MapboxAutocomplete
+              publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
+              inputClass="form-control search"
+              placeholder="To ..."
+              onSuggestionSelect={suggestionSelectTo}
+              value={to}
+              country="tn"
+              resetSearch={false}
+            />
 
-              <Form.Control
-                name="carModel"
-                type="text"
-                placeholder="Car Model"
-                onChange={(e) =>
-                  setNewTrip({ ...newTrip, carModel: e.target.value })
-                }
-              />
-              <br />
-              <Form.Control
-                name="price"
-                type="text"
-                placeholder="Price by place (DT)"
-                onChange={(e) =>
-                  setNewTrip({ ...newTrip, price: e.target.value })
-                }
-              />
-              <br />
-              <Row>
-                <Col xs={6}>
-                  <TextField
-                    id="datetime-local"
-                    label=" Trip Date/Time"
-                    type="datetime-local"
-                    defaultValue="2021-01-01T10:30"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    onChange={(e) =>
-                      setNewTrip({ ...newTrip, dateTime: e.target.value })
-                    }
-                  />
-                </Col>
-                <Col xs={6}>
-                  <InputLabel id="demo-controlled-open-select-label">
-                    Seating capacity
-                  </InputLabel>
-                  <Select
-                    labelId="demo-controlled-open-select-label"
-                    id="demo-controlled-open-select"
-                    open={open}
-                    onClose={handleClose}
-                    onOpen={handleOpen}
-                    value={seating}
-                    onChange={handleChangeSeating}
-                  >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                  </Select>
-                </Col>
-              </Row>
-            </Col>
-            <Col xs={6}>
-              <br />
-              <FormLabel>Gender Trip</FormLabel>
-              <RadioGroup
-                aria-label="gender"
-                name="gender"
-                value={value}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
+            <Form.Control
+              name="carModel"
+              type="text"
+              placeholder="Car Model"
+              onChange={(e) =>
+                setNewTrip({ ...newTrip, carModel: e.target.value })
+              }
+            />
+            <br />
+            <Form.Control
+              name="price"
+              type="text"
+              placeholder="Price by place (DT)"
+              onChange={(e) =>
+                setNewTrip({ ...newTrip, price: e.target.value })
+              }
+            />
+            <br />
+            <Row>
+              <Col xs={6}>
+                <TextField
+                  id="datetime-local"
+                  label=" Trip Date/Time"
+                  type="datetime-local"
+                  defaultValue="2021-01-01T10:30"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={(e) =>
+                    setNewTrip({ ...newTrip, dateTime: e.target.value })
+                  }
                 />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
+              </Col>
+              <Col xs={6}>
+                <InputLabel id="demo-controlled-open-select-label">
+                  Seating capacity
+                </InputLabel>
+                <Select
+                  labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  open={open}
+                  onClose={handleClose}
+                  onOpen={handleOpen}
+                  value={seating}
+                  onChange={handleChangeSeating}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                </Select>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={6}>
+            <br />
+            <FormLabel>Gender Trip</FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="gender"
+              value={value}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Female"
+              />
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel
+                value="mixed"
+                control={<Radio />}
+                label="Mixed"
+              />
+            </RadioGroup>
+            <br />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={luggage.checked}
+                  onChange={handleChangeCheckLuggage}
+                  name="checkedA"
                 />
-                <FormControlLabel
-                  value="mixed"
-                  control={<Radio />}
-                  label="Mixed"
+              }
+              label="Luggage"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={luggage.checked}
+                  onChange={handleChangeCheckMusic}
+                  name="checkedB"
                 />
-              </RadioGroup>
-              <br />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={luggage.checked}
-                    onChange={handleChangeCheckLuggage}
-                    name="checkedA"
-                  />
-                }
-                label="Luggage"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={luggage.checked}
-                    onChange={handleChangeCheckMusic}
-                    name="checkedB"
-                  />
-                }
-                label="Music"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={smoking.checked}
-                    onChange={handleChangeCheckSmoking}
-                    name="checkedC"
-                  />
-                }
-                label="Smoking"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={airConditioned.checked}
-                    onChange={handleChangeCheckairConditioned}
-                    name="checkedD"
-                  />
-                }
-                label="Air Conditioned"
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6} md={4}></Col>
-            <Col xs={6} md={4}></Col>
-            <Col xs={6} md={4}>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleSubmit}
-              >
-                Validate
-              </Button>
-            </Col>
-          </Row>
-        </Container>
+              }
+              label="Music"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={smoking.checked}
+                  onChange={handleChangeCheckSmoking}
+                  name="checkedC"
+                />
+              }
+              label="Smoking"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={airConditioned.checked}
+                  onChange={handleChangeCheckairConditioned}
+                  name="checkedD"
+                />
+              }
+              label="Air Conditioned"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={6} md={4}></Col>
+          <Col xs={6} md={4}></Col>
+          <Col xs={6} md={4}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleSubmit}
+            >
+              Validate
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
 
 export default OfferRide;
+// {console.log(
+//   "from: " + from,
+//   "lat: " + fromCoordinate.lat,
+//   "lng: " + fromCoordinate.lng
+// )}
+// {console.log(
+//   "to: " + to,
+//   "lat: " + toCoordinate.lat,
+//   "lng: " + toCoordinate.lng
+// )}
+// {console.log(newTrip)}
