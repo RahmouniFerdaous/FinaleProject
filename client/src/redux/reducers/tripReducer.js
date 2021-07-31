@@ -5,12 +5,13 @@ import {
   GET_ALL_TRIP_REQUEST,
   GET_ALL_TRIP_SUCCESS,
   GET_ALL_TRIP_FAILED,
+  GET_TRIP_COUNT_SUCCESS,
 } from "../actions/tripTypes";
 
 const initState = {
   tripList: [],
   errors: null,
-  isLoading: true,
+  isLoading: false,
 };
 
 const tripReducer = (state = initState, { type, payload }) => {
@@ -20,8 +21,13 @@ const tripReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         errors: null,
-        isLoading: false,
+        isLoading: true,
       };
+      case GET_TRIP_COUNT_SUCCESS:
+      return {
+           ...state,
+           count:payload.count
+      }
     case GET_TRIP_SUCCESS:
     case GET_ALL_TRIP_SUCCESS:
       return {

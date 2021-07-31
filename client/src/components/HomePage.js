@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import { getAllTrips } from "../redux/actions/tripActions";
+import { getProfile } from "../redux/actions/authActions";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -42,7 +43,7 @@ function HomePage() {
   const trips = useSelector((state) => state.trips);
   // component did mount
   useEffect(() => {
-    dispatch(getAllTrips());
+    dispatch(getAllTrips(1,6));
   }, []);
   return (
     <main>
@@ -189,7 +190,7 @@ function HomePage() {
             .map((trip, index) => (
               <TripDetails key={index} trip={trip}></TripDetails>
             ))
-            .reverse()}
+            }
       </Container>
     </main>
   );

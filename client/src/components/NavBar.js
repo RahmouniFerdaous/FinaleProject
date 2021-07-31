@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Avatar } from '@material-ui/core';
 import {  getProfile,logout } from '../redux/actions/authActions';
 
 const useStyles = makeStyles((theme) => ({
@@ -81,7 +82,8 @@ const NavBar = () => {
                   onClick={handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle />
+        {! auth.user? <AccountCircle /> : <Avatar alt="Remy Sharp" src={auth.user.profilePic.url} className={classes.small} />}
+         {/* <AccountCircle />  */}
                 </IconButton>
                 <Menu
                   id="menu-appbar"

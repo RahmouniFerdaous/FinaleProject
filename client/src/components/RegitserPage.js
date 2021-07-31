@@ -169,7 +169,7 @@ const RegitserPage = () => {
             </Grid>
             <Grid item xs={12}>
               <img name="image" alt="profile pic" src={selectedImage || "/images/avatar.jpg"} />
-              <br />
+              <br/>
               <input
                 type="file"
                 name="profilePic"

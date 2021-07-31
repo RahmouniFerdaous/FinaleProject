@@ -9,6 +9,7 @@ import SearchRide from './components/SearchRide';
 import OfferRide from './components/OfferRide';
 import NavBar from './components/NavBar';
 import FooterBar from './components/FooterBar';
+import Loading from './components/Loading';
 
 import  PrivateRoute from './privateRoutes/privateRoute'
 import  PrivateRouteSearch from './privateRoutes/privateRouteSearch'
@@ -22,7 +23,7 @@ function App() {
       <BrowserRouter>
 
       <NavBar/>
-
+      <Loading/>
       <Switch> 
        <Route exact path="/" component={HomePage}/>
        <Route exact path="/register" component={RegisterPage}/>

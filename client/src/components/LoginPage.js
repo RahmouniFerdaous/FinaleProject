@@ -57,7 +57,7 @@ const LoginPage = () => {
     const history=useHistory()
     useEffect(() => {
       if (auth.isAuth)
-      history.push('/searchRide')
+      history.push('/')
     }, [auth.isAuth])
     return (
             <Container component="main" maxWidth="xs">

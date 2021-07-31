@@ -52,7 +52,20 @@ const addTrip = async (req, res) => {
 //Get ALL trip
 const getAllTrips = async (req, res) => {
   try {
-    const trips = await Trip.find().populate("owner");
+        let limit = +req.query.limit //nbre of trip per page
+        let pageNumber = +req.query.page // nombre of page 
+        let documentCount = await Trip.find().countDocuments()
+        let numberTotalOfpages = Math.ceil(documentCount / limit); //5.5 => 6 page
+
+        if (pageNumber > numberTotalOfpages)
+        pageNumber = numberTotalOfpages
+
+    const trips = await Trip.find()
+                  .select({ '__v': 0 }) //without version
+                  .sort({ 'dateTime': -1 }) //newset trips
+                  .populate( {path:"owner",select:"created_at role _id firstName lastName profilePic age phone"} )
+                  .skip((pageNumber - 1) * limit)
+                  .limit(limit);
     res.json(trips);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });
@@ -92,4 +105,17 @@ const deleteTrip = async (req, res) => {
   }
 };
 
-module.exports = { addTrip, getAllTrips, getMyTrip, updateTrip, deleteTrip };
+//Trip Count
+const getTripsCount = async (req, res) => {
+    try {
+      const count = await Trip.find().countDocuments();
+      
+      res.json({ count })
+  }
+  catch (err) {
+      res.status(400).json({ errors: [{ msg: err.message }] })
+
+  }
+}
+
+module.exports = { addTrip, getAllTrips, getTripsCount, getMyTrip, updateTrip, deleteTrip };

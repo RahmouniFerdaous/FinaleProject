@@ -8,6 +8,9 @@ import {
   GET_ALL_TRIP_REQUEST,
   GET_ALL_TRIP_SUCCESS,
   GET_ALL_TRIP_FAILED,
+  GET_TRIP_COUNT_REQUEST,
+  GET_TRIP_COUNT_SUCCESS,
+  GET_TRIP_COUNT_FAILED
 } from "./tripTypes";
 import axios from "axios";
 import { prefix } from "../../helpers/constant";
@@ -47,10 +50,10 @@ export const getMyTrip = () => async (dispatch) => {
   }
 };
 
-export const getAllTrips = () => async (dispatch) => {
+export const getAllTrips = (page,limit) => async (dispatch) => {
   dispatch({ type: GET_ALL_TRIP_REQUEST });
   try {
-    const { data } = await axios.get(`${prefix}/api/trip/alltrips`);
+    const { data } = await axios.get(`${prefix}/api/trip/alltrips?page=${page}&limit=${limit}`);
     dispatch({
       type: GET_ALL_TRIP_SUCCESS,
       payload: data,
@@ -58,6 +61,23 @@ export const getAllTrips = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: GET_ALL_TRIP_FAILED,
+      payload: err.response.data.errors,
+    });
+  }
+};
+
+
+export const getTripCount = () => async (dispatch) => {
+  dispatch({ type: GET_TRIP_COUNT_REQUEST });
+  try {
+    const { data } = await axios.get(`${prefix}/api/trip/tripCount`);
+    dispatch({
+      type: GET_TRIP_COUNT_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_TRIP_COUNT_FAILED,
       payload: err.response.data.errors,
     });
   }
