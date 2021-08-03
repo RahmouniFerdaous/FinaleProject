@@ -4,11 +4,12 @@ import MapboxAutocomplete from "react-mapbox-autocomplete";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
+import { useHistory } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
+import { getProfile, updateRole } from "../redux/actions/authActions";
 import { getAllTrips, getTripCount } from "../redux/actions/tripActions";
 
 // const publicKey=process.env.REACT_APP_MAPBOX_API_KEY;
@@ -23,15 +24,14 @@ const SearchRide = () => {
     lat: null,
     lng: null,
   });
-  // //role
-  // const [role,setRole]= useState("")
 
   //dispatch action
   const dispatch = useDispatch();
   //selector state
   const trips = useSelector((state) => state.trips);
   const count = useSelector((state) => state.trips.count);
-  //
+  const auth = useSelector((state) => state.auth);
+  //Pagination
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(6);
   // component did mount
@@ -44,6 +44,18 @@ const SearchRide = () => {
     setPage(p);
     dispatch(getAllTrips(p, limit));
   };
+  //role
+  const [role, setRole] = useState("driver");
+  const handleRole = (e) => {
+    e.preventDefault();
+    dispatch(updateRole(auth.user._id, role));
+  };
+  //useEffect render if role is changed
+  const history = useHistory();
+  useEffect(() => {
+    if (auth.isAuth && auth.user && auth.user.role === "driver")
+      history.push("/offerRide");
+  }, [auth.user.role === "driver"]);
 
   const suggestionSelectFrom = async (result, lat, lng, text) => {
     setFrom(result);
@@ -81,11 +93,9 @@ const SearchRide = () => {
           <Col></Col>
           <Col></Col>
           <Col>
-            <Link href="/offerRide">
-              <Button variant="contained" color="secondary">
-                Become a Rider?
-              </Button>
-            </Link>
+            <Button variant="contained" color="secondary" onClick={handleRole}>
+              Become a Rider?
+            </Button>
           </Col>
         </Row>
         <hr />
@@ -132,7 +142,7 @@ const SearchRide = () => {
           <Col></Col>
           <Col></Col>
           <Col>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" type="submit">
               Search
             </Button>
             <Button
@@ -257,15 +267,12 @@ const SearchRide = () => {
                     )}
                   </Col>
                 </Row>
-                <Row>
-                  <Col>
-                    <Card.Text>
-                      Seating Available {trip.seatingCapacity}
-                    </Card.Text>
-                  </Col>
-                  <Col></Col>
-                </Row>
               </Card.Body>
+              <Card.Footer>
+                <Card.Text className="text-muted">
+                  Seating Available <b>{trip.seatingCapacity}</b>
+                </Card.Text>
+              </Card.Footer>
             </Card>
           ))}
       </Container>

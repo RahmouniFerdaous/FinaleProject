@@ -1,10 +1,10 @@
 import {LOGIN_REQUEST,LOGIN_SUCCESS,LOGIN_FAILED,GET_PROFILE_REQUEST,GET_PROFILE_SUCCESS,GET_PROFILE_FAILED,
-        REGISTER_REQUEST, REGISTER_SUCCESS,REGISTER_FAILED,LOGOUT} from '../actions/authTypes'
+        REGISTER_REQUEST, REGISTER_SUCCESS,REGISTER_FAILED,LOGOUT,
+        PUT_ROLE_REQUEST,PUT_ROLE_SUCCESS,PUT_ROLE_FAILED} from '../actions/authTypes'
 import axios from 'axios'
 import {prefix} from '../../helpers/constant'
 import {setToken} from '../../helpers/helpers'
 
-import { getMyTrip } from "./tripActions";
 
 //asynchrone fct login 
 export const login = (info) => async (dispatch) => {
@@ -15,6 +15,7 @@ export const login = (info) => async (dispatch) => {
       type:LOGIN_SUCCESS,
       payload:res.data    
     })
+    dispatch(getProfile())
   }
   catch (err){
     dispatch({
@@ -51,11 +52,28 @@ dispatch ({
   type:GET_PROFILE_SUCCESS,
   payload:data
 })
-dispatch(getMyTrip())
 }
 catch (err) {
   dispatch({
     type:GET_PROFILE_FAILED,
+    payload:err.response.data.errors    
+  })
+}
+}
+
+export const updateRole = (id,role) => async (dispatch) => {
+  dispatch( {type:PUT_ROLE_REQUEST} )
+try {
+  setToken() // receive the tokenn from the localStorage
+const {data} = await axios.put(`${prefix}/api/user/updaterole/${id}`,role) 
+dispatch ({
+  type:PUT_ROLE_SUCCESS,
+  payload:data
+})
+}
+catch (err) {
+  dispatch({
+    type:PUT_ROLE_FAILED,
     payload:err.response.data.errors    
   })
 }

@@ -17,6 +17,7 @@ import Container from '@material-ui/core/Container';
 import {login} from '../redux/actions/authActions';
 
 
+
   const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -51,7 +52,7 @@ const LoginPage = () => {
     // submit action
     const handleChange = (e) => {
     e.preventDefault()
-    dispatch(login(info))
+    dispatch(login(info))  
     }
     //useEffect render if isAuth is changed
     const history=useHistory()

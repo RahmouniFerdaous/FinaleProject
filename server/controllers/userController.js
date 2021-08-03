@@ -98,4 +98,18 @@ const getUserProfile = async (req,res) => {
  }
 }
 
-module.exports = { register,login,getUserProfile }
+//Upadted role
+
+const updateRole = async (req, res) => {
+    try {
+      const updatedRole = await User.findByIdAndUpdate(req.params.id, {
+        ...req.body,
+      });
+      res.json(updatedRole);
+    } catch (err) {
+      res.status(500).json({ errors: [{ msg: err.message }] });
+    }
+  };
+
+
+module.exports = { register, login, getUserProfile, updateRole }

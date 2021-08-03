@@ -300,6 +300,7 @@ const OfferRide = () => {
           </Col>
         </Row>
       </Container>
+      <br/>
     </div>
   );
 };

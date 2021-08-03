@@ -9,7 +9,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import { getAllTrips } from "../redux/actions/tripActions";
-import { getProfile } from "../redux/actions/authActions";
+
+
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
