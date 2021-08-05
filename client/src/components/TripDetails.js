@@ -32,10 +32,16 @@ const useStyles = makeStyles((theme) => ({
 const TripDetails = ({ trip }) => {
   const classes = useStyles();
   return (
-    <Card style={{background:"#fceabb",  /* fallback for old browsers */
-    background: "-webkit-linear-gradient(to right, #fceabb, #f8b500)",  /* Chrome 10-25, Safari 5.1-6 */
-    background: "linear-gradient(to right, #fceabb, #f8b500)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    }} className={classes.card}>
+    <Card
+      style={{
+        background: "#fceabb" ,
+        background:
+          "-webkit-linear-gradient(to right, #fceabb, #f8b500)" ,
+        background:
+          "linear-gradient(to right, #fceabb, #f8b500)" ,
+      }}
+      className={classes.card}
+    >
       <CardContent className={classes.cardContent}>
         <Container>
           <Row>
@@ -48,7 +54,7 @@ const TripDetails = ({ trip }) => {
               </Typography>
             </Col>
             <Col>
-                <span>{trip.price.$numberDecimal} DT</span>
+              <span>{trip.price.$numberDecimal} DT</span>
             </Col>
             <Col>
               <i class="bi bi-truck"></i>
@@ -59,7 +65,7 @@ const TripDetails = ({ trip }) => {
         </Container>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button href="/searchRide" size="small" color="primary">
           RESERVE NOW!
         </Button>
       </CardActions>

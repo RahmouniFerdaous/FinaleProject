@@ -9,7 +9,7 @@ const AboutuS = () => {
       <Container style={{ width: "85%", marginLeft: "10%" }}>
         <Row>
           <Col sm={6}>
-            <Figure.Caption>
+            <Figure.Caption><br /><br /><br /><br /><br /><br />
               CarShar is a 100% Tunisian trustworthy community platform, which
               makes it possible to offer trips throughout Tunisia. To achieve
               this service, we had to find a dynamic, passionate team with a

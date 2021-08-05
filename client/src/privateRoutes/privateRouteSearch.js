@@ -8,7 +8,7 @@ const PrivateRouteSearch = ({ component: Component, ...rest }) => {
         <Route
             {...rest}
             render={(props) =>
-                !auth.isAuth ? <Redirect to="/" /> : <Component {...props} />
+                !auth.isAuth ? <Redirect to="/login" /> : <Component {...props} />
             }
         />
     );

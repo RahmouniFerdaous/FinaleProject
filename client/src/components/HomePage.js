@@ -79,12 +79,12 @@ function HomePage() {
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justifyContent="center">
               <Grid item>
-                <Button variant="contained" color="primary">
+                <Button href="/searchRide" variant="contained" color="primary">
                   Search a Ride
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="outlined" color="primary">
+                <Button href="/offerRide" variant="outlined" color="primary">
                   Offer a Ride
                 </Button>
               </Grid>
@@ -105,7 +105,7 @@ function HomePage() {
           <br />
           <Row>
             <Col className="icons">
-              <i class="bi bi-person-fill"></i>
+              <i className="bi bi-person-fill"></i>
               <Typography
                 variant="h6"
                 align="center"
@@ -125,7 +125,7 @@ function HomePage() {
               </Typography>
             </Col>
             <Col className="icons">
-              <i class="bi bi-file-earmark-person-fill"></i>
+              <i className="bi bi-file-earmark-person-fill"></i>
               <Typography
                 variant="h6"
                 align="center"
@@ -145,7 +145,7 @@ function HomePage() {
               </Typography>
             </Col>
             <Col className="icons">
-              <i class="bi bi-hand-thumbs-up-fill"></i>
+              <i className="bi bi-hand-thumbs-up-fill"></i>
               <Typography
                 variant="h6"
                 align="center"

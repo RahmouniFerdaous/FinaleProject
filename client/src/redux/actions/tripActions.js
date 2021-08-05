@@ -10,7 +10,10 @@ import {
   GET_ALL_TRIP_FAILED,
   GET_TRIP_COUNT_REQUEST,
   GET_TRIP_COUNT_SUCCESS,
-  GET_TRIP_COUNT_FAILED
+  GET_TRIP_COUNT_FAILED,
+  FIND_TRIPS_REQUEST,
+  FIND_TRIPS_SUCCESS,
+  FIND_TRIPS_FAILED,
 } from "./tripTypes";
 import axios from "axios";
 import { prefix } from "../../helpers/constant";
@@ -33,11 +36,13 @@ export const addTrip = (newTrip) => async (dispatch) => {
   }
 };
 
-export const getMyTrip = () => async (dispatch) => {
+export const getMyTrip = (page, limit) => async (dispatch) => {
   dispatch({ type: GET_TRIP_REQUEST });
   try {
     setToken();
-    const { data } = await axios.get(`${prefix}/api/trip/mytrips`);
+    const { data } = await axios.get(
+      `${prefix}/api/trip/mytrips?page=${page}&limit=${limit}`
+    );
     dispatch({
       type: GET_TRIP_SUCCESS,
       payload: data,
@@ -50,10 +55,12 @@ export const getMyTrip = () => async (dispatch) => {
   }
 };
 
-export const getAllTrips = (page,limit) => async (dispatch) => {
+export const getAllTrips = (page, limit) => async (dispatch) => {
   dispatch({ type: GET_ALL_TRIP_REQUEST });
   try {
-    const { data } = await axios.get(`${prefix}/api/trip/alltrips?page=${page}&limit=${limit}`);
+    const { data } = await axios.get(
+      `${prefix}/api/trip/alltrips?page=${page}&limit=${limit}`
+    );
     dispatch({
       type: GET_ALL_TRIP_SUCCESS,
       payload: data,
@@ -65,7 +72,23 @@ export const getAllTrips = (page,limit) => async (dispatch) => {
     });
   }
 };
-
+export const findTrips = (from, to) => async (dispatch) => {
+  dispatch({ type: FIND_TRIPS_REQUEST });
+  try {
+    const { data } = await axios.get(
+      `${prefix}/api/trip/findtrips?from=${from}&to=${to}`
+    );
+    dispatch({
+      type: FIND_TRIPS_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: FIND_TRIPS_FAILED,
+      payload: err.response.data.errors,
+    });
+  }
+};
 
 export const getTripCount = () => async (dispatch) => {
   dispatch({ type: GET_TRIP_COUNT_REQUEST });

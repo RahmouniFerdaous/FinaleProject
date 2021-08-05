@@ -11,5 +11,7 @@ router.get('/mytrips',tokenMiddleware,tripController.getMyTrip)
 router.put('/updatetrip/:id',tokenMiddleware,checkTripOwner,tripController.updateTrip)
 router.delete('/deletetrip/:id',tokenMiddleware,checkTripOwner,tripController.deleteTrip)
 
+router.get('/findtrips',tripController.findTrips)
+
 
 module.exports=router

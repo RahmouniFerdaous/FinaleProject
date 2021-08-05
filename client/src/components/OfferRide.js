@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
 import Button from "@material-ui/core/Button";
@@ -123,6 +124,9 @@ const OfferRide = () => {
     e.preventDefault();
     dispatch(addTrip(newTrip));
   };
+
+  //router dom
+  const history = useHistory();
 
   return (
     <div>
@@ -292,7 +296,15 @@ const OfferRide = () => {
           <Col xs={6} md={4}>
             <Button
               variant="contained"
+              color="primary"
+              onClick={() => history.goBack()}
+            >
+              Go Back
+            </Button>
+            <Button
+              variant="contained"
               color="secondary"
+              style={{ marginLeft: "5px" }}
               onClick={handleSubmit}
             >
               Validate
@@ -300,7 +312,7 @@ const OfferRide = () => {
           </Col>
         </Row>
       </Container>
-      <br/>
+      <br />
     </div>
   );
 };

@@ -8,7 +8,7 @@ const PrivateRouteOffer = ({ component: Component, ...rest }) => {
         <Route
             {...rest}
             render={(props) =>
-                (auth.isAuth)? <Component {...props} />  : <Redirect to="/" />
+            (auth.isAuth && auth.user && auth.user.role)? <Component {...props} /> : <Redirect to="/searchRide" />
             }
         />
     );

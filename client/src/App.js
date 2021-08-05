@@ -27,10 +27,10 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/aboutUs" component={AboutUs} />
           <PrivateRoute exact path="/profile" component={ProfilePage} />
           <PrivateRouteSearch exact path="/searchRide" component={SearchRide} />
           <PrivateRouteOffer exact path="/offerRide" component={OfferRide} />
-          <Route exact path="/aboutUs" component={AboutUs} />
         </Switch>
 
         <FooterBar />

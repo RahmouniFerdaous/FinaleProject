@@ -42,7 +42,7 @@ const FooterBar = () => {
         <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
         <Link color="inherit" href="#">
-          CarShar. All rights reserved.
+        Rahmouni Ferdaous . All rights reserved.
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
