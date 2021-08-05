@@ -310,6 +310,8 @@ const OfferRide = () => {
               Validate
             </Button>
           </Col>
+          <br/>
+          <br/>
         </Row>
       </Container>
       <br />
@@ -318,14 +320,4 @@ const OfferRide = () => {
 };
 
 export default OfferRide;
-// {console.log(
-//   "from: " + from,
-//   "lat: " + fromCoordinate.lat,
-//   "lng: " + fromCoordinate.lng
-// )}
-// {console.log(
-//   "to: " + to,
-//   "lat: " + toCoordinate.lat,
-//   "lng: " + toCoordinate.lng
-// )}
-// {console.log(newTrip)}
+

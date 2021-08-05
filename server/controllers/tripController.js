@@ -111,7 +111,6 @@ const findTrips = async (req, res) => {
         path: "owner",
         select: "created_at role _id firstName lastName profilePic age phone",
       });
-
     res.json(resultSearch);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });

@@ -102,9 +102,7 @@ const getUserProfile = async (req, res) => {
 
 const updateRole = async (req, res) => {
   try {
-    const updatedRole = await User.findByIdAndUpdate(req.params.id, {
-      ...req.body,
-    });
+    const updatedRole = await User.findByIdAndUpdate(req.params.id, {...req.body}, {new:true});
     res.json(updatedRole);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });

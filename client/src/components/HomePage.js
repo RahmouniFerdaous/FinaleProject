@@ -112,7 +112,7 @@ function HomePage() {
                 color="textSecondary"
                 paragraph
               >
-                IN CONTROL
+                ALWAYS IN CONTROL
               </Typography>
               <Typography
                 variant="h6"

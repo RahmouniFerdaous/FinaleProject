@@ -72,6 +72,11 @@ const SearchRide = () => {
     e.preventDefault();
     dispatch(findTrips(from, to));
   };
+  //reset
+  const handleReset = (e) => {
+    e.preventDefault();
+    dispatch(getAllTrips(page, limit));
+  };
 
   return (
     <div>
@@ -97,7 +102,6 @@ const SearchRide = () => {
               Search a CarPooling
             </Typography>
           </Col>
-          <Col></Col>
           <Col></Col>
           <Col>
             <Button
@@ -172,8 +176,9 @@ const SearchRide = () => {
             <Button
               variant="contained"
               color="secondary"
-              type="reset"
+              type="submit"
               style={{ marginLeft: "5px" }}
+              onClick={handleReset}
             >
               Reset
             </Button>

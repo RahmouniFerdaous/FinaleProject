@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
@@ -12,7 +12,7 @@ import {
 import Typography from "@material-ui/core/Typography";
 
 import { getProfile } from "../redux/actions/authActions";
-import { getMyTrip,getTripCount } from "../redux/actions/tripActions";
+import { getMyTrip, getTripCount } from "../redux/actions/tripActions";
 
 import LimitSelector from "./LimitSelector";
 
@@ -20,8 +20,8 @@ const ProfilePage = () => {
   //selector state
   const auth = useSelector((state) => state.auth);
   const trips = useSelector((state) => state.trips);
-   const count = useSelector((state) => state.trips.count);
-    //Pagination
+  const count = useSelector((state) => state.trips.count);
+  //Pagination
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(2);
   //dispatch action
@@ -30,7 +30,7 @@ const ProfilePage = () => {
   useEffect(() => {
     dispatch(getProfile());
     dispatch(getTripCount());
-    dispatch(getMyTrip(page,limit));
+    dispatch(getMyTrip(page, limit));
   }, []);
   return (
     <div
@@ -74,7 +74,7 @@ const ProfilePage = () => {
               </ListGroup>
               <Card.Body>
                 <Card.Link href="#">Edit</Card.Link>
-                <Card.Link href="#">Become a Driver?</Card.Link>
+                {/* <Card.Link href="#">Become a Driver?</Card.Link> */}
               </Card.Body>
             </Card>
             <br />
@@ -181,15 +181,15 @@ const ProfilePage = () => {
                   </Card>
                 ))}
             </Container>
-             <Row>
-        <Col></Col>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-        <Col>
-           <LimitSelector setLimit={setLimit}/>
-        </Col>
-        </Row>
+            <Row>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col>
+                <LimitSelector setLimit={setLimit} />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
