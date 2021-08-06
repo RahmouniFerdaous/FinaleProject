@@ -34,7 +34,10 @@ const tripSchema = Schema({
   from_lng: mongoose.Types.Decimal128,
   to_lat: mongoose.Types.Decimal128,
   to_lng: mongoose.Types.Decimal128,
-  tripGender: String,
+  tripGender: {
+    type: String,
+    default: "mixed",
+  },
   luggage: Boolean,
   music: Boolean,
   smoking: Boolean,

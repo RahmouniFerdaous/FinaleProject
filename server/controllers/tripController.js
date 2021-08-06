@@ -1,9 +1,16 @@
 const Trip = require("../models/Trip");
+const { validationResult } = require("express-validator");
+
 
 //Post Trip
 
 const addTrip = async (req, res) => {
   try {
+     //validationCheckMiddeleware
+     const errors = validationResult(req);
+     if (!errors.isEmpty())
+     return res.status(400).json({ errors: errors.mapped() });
+    //create trip
     const {
       carModel,
       seatingCapacity,

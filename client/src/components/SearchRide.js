@@ -75,6 +75,7 @@ const SearchRide = () => {
   //reset
   const handleReset = (e) => {
     e.preventDefault();
+    dispatch(getTripCount());
     dispatch(getAllTrips(page, limit));
   };
 
