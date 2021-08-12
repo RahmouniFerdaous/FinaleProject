@@ -106,6 +106,7 @@ const getMyTrip = async (req, res) => {
   }
 };
 
+//find Trip
 const findTrips = async (req, res) => {
   const from = req.query.from;
   const to = req.query.to;
@@ -124,13 +125,27 @@ const findTrips = async (req, res) => {
   }
 };
 
+//get One Trip
+
+const getSelectedTrip = async (req, res) => {
+  try {
+    const selectedTrip = await Trip.findOne({ _id: req.params.id})
+    .select({ __v: 0 })
+    .populate({
+      path: "owner",
+      select: "created_at role _id firstName lastName profilePic age phone",
+    });
+    res.json(selectedTrip);
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+};
+
 //Upadted Trip
 
 const updateTrip = async (req, res) => {
   try {
-    const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, {
-      ...req.body,
-    });
+    const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, {...req.body}, {new:true});
     res.json(updatedTrip);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });
@@ -140,7 +155,7 @@ const updateTrip = async (req, res) => {
 //Delete Trip
 const deleteTrip = async (req, res) => {
   try {
-    const deletedTrip = await Trip.findByIdAndDelete(req.params.id);
+    const deletedTrip = await Trip.findByIdAndDelete({ _id:req.params.id });
     res.json(deletedTrip);
   } catch (err) {
     res.status(500).json({ errors: [{ msg: err.message }] });
@@ -163,6 +178,7 @@ module.exports = {
   getAllTrips,
   getTripsCount,
   getMyTrip,
+  getSelectedTrip,
   updateTrip,
   deleteTrip,
   findTrips,

@@ -6,7 +6,11 @@
   "scripts": {
     "server": "cd server && nodemon server.js",
     "client": "cd client && npm start",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "start":"concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild":"npm run install-client && npm run build"
   },
   "author": "",
   "license": "ISC",

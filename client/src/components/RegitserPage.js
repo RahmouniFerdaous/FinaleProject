@@ -48,7 +48,7 @@ const RegitserPage = () => {
     password: "",
     age: "",
     phone: "",
-    ProfilePic:null
+    ProfilePic: null,
   });
   const handleImageChange = (e) => {
     if (e.target.files.length) {
@@ -168,8 +168,14 @@ const RegitserPage = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <img name="image" alt="profile pic" src={selectedImage || "/images/avatar.jpg"} />
-              <br/>
+              <img
+                name="image"
+                alt="profile pic"
+                width="250"
+                height="280"
+                src={selectedImage || "/images/avatar.jpg"}
+              />
+              <br />
               <input
                 type="file"
                 name="profilePic"

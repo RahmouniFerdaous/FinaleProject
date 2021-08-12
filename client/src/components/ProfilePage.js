@@ -5,6 +5,7 @@ import {
   Row,
   Col,
   Image,
+  Button,
   Card,
   ListGroup,
   ListGroupItem,
@@ -12,7 +13,11 @@ import {
 import Typography from "@material-ui/core/Typography";
 
 import { getProfile } from "../redux/actions/authActions";
-import { getMyTrip, getTripCount } from "../redux/actions/tripActions";
+import {
+  getMyTrip,
+  getTripCount,
+  deleteTrip,
+} from "../redux/actions/tripActions";
 
 import LimitSelector from "./LimitSelector";
 
@@ -23,7 +28,7 @@ const ProfilePage = () => {
   const count = useSelector((state) => state.trips.count);
   //Pagination
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(3);
   //dispatch action
   const dispatch = useDispatch();
   // component did mount
@@ -32,6 +37,11 @@ const ProfilePage = () => {
     dispatch(getTripCount());
     dispatch(getMyTrip(page, limit));
   }, []);
+  //delete
+  const onDelete = (id) => {
+    dispatch(deleteTrip(id));
+    dispatch(getMyTrip(1,3));
+  };
   return (
     <div
       style={{
@@ -46,16 +56,16 @@ const ProfilePage = () => {
           <Col sm={2}>
             <br />
             <Card style={{ width: "18rem" }}>
-              {auth.user ? (
+              {!auth.user ? (
                 <Image
-                  src={auth.user.profilePic.url}
+                  src="/images/avatar.jpg"
                   alt="profile picture"
                   width="100%"
                   height="280"
                 />
               ) : (
                 <Image
-                  src="/images/avatar.jpg"
+                  src={auth.user.profilePic.url}
                   alt="profile picture"
                   width="100%"
                   height="280"
@@ -74,7 +84,9 @@ const ProfilePage = () => {
               </ListGroup>
               <Card.Body>
                 <Card.Link href="#">Edit</Card.Link>
-                {/* <Card.Link href="#">Become a Driver?</Card.Link> */}
+                {auth.isAuth && auth.user && auth.user.role !== "driver" && (
+                  <Card.Link href="/searchRide">Become a Driver?</Card.Link>
+                )}
               </Card.Body>
             </Card>
             <br />
@@ -173,6 +185,26 @@ const ProfilePage = () => {
                         </Col>
                       </Row>
                     </Card.Body>
+                    <Card.Footer>
+                      <Row>
+                        <Col>
+                          <Button
+                            href={`/updateRide/${trip._id}`}
+                            variant="warning"
+                          >
+                            Edit
+                          </Button>
+                        </Col>
+                        <Col>
+                          <Button
+                            variant="danger"
+                            onClick={() => onDelete(trip._id)}
+                          >
+                            Delete
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Card.Footer>
                     <Card.Footer>
                       <small className="text-muted">
                         Seating Available <b>{trip.seatingCapacity}</b>

@@ -13,4 +13,9 @@
         "API_KEY":"518937362822654",
         "API_SECRET":"73R0pk0wo6WQiv2oFat_MtgKMt4"
     }
+    // ,
+    // "HEROKU_CONFIG":{
+    //     "NODE_ENV":"production"
+    // }
+
 }

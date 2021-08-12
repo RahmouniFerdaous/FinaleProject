@@ -49,10 +49,11 @@ const SearchRide = () => {
     dispatch(getAllTrips(p, limit));
   };
   //role
-  const [role, setRole] = useState("driver");
-  const handleRole = (e) => {
+  const id = auth.user._id;
+  const info = { role: "driver" };
+  const handleRoleDriver = (e) => {
     e.preventDefault();
-    dispatch(updateRole(auth.user._id, role));
+    dispatch(updateRole(id, info));
     history.push("/offerRide");
   };
   //router dom
@@ -115,7 +116,7 @@ const SearchRide = () => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={handleRole}
+              onClick={handleRoleDriver}
               style={{ marginLeft: "5px" }}
             >
               Become a Rider?

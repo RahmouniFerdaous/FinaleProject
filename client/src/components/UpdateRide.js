@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
@@ -13,11 +13,12 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
-import { useDispatch } from "react-redux";
-import { addTrip } from "../redux/actions/tripActions";
+import { useSelector, useDispatch } from "react-redux";
+import { getSelectedTrip, updateTrip } from "../redux/actions/tripActions";
 
-const OfferRide = () => {
+const UpdateRide = ({ match }) => {
   const dispatch = useDispatch();
+  const trips = useSelector((state) => state.trips);
   const [newTrip, setNewTrip] = useState({
     from: "",
     to: "",
@@ -120,14 +121,21 @@ const OfferRide = () => {
     setNewTrip({ ...newTrip, airConditioned: event.target.checked });
   };
 
-  //router dom
-  const history = useHistory();
-  //dispatch action
+  //get the trip before edit
+  const id = match.params.id;
+  console.log(id);
+  useEffect(() => {
+    dispatch(getSelectedTrip(id));
+  }, []);
+   //router dom
+   const history = useHistory();
+  //update
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addTrip(newTrip));
+    dispatch(updateTrip(id, newTrip));
     history.push("/profile");
   };
+
 
   return (
     <div>
@@ -148,15 +156,16 @@ const OfferRide = () => {
           color="textPrimary"
           gutterBottom
         >
-          Publish a CarPooling
+          Edit your CarPooling
         </Typography>
         <br />
+
         <Row>
           <Col xs={6}>
             <MapboxAutocomplete
               publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
               inputClass="form-control search"
-              placeholder="From ..."
+              placeholder={trips.tripList.from}
               onSuggestionSelect={suggestionSelectFrom}
               value={from}
               country="tn"
@@ -166,7 +175,7 @@ const OfferRide = () => {
             <MapboxAutocomplete
               publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
               inputClass="form-control search"
-              placeholder="To ..."
+              placeholder={trips.tripList.to}
               onSuggestionSelect={suggestionSelectTo}
               value={to}
               country="tn"
@@ -176,7 +185,7 @@ const OfferRide = () => {
             <Form.Control
               name="carModel"
               type="text"
-              placeholder="Car Model"
+              placeholder={trips.tripList.carModel}
               onChange={(e) =>
                 setNewTrip({ ...newTrip, carModel: e.target.value })
               }
@@ -185,7 +194,7 @@ const OfferRide = () => {
             <Form.Control
               name="price"
               type="text"
-              placeholder="Price by place (DT)"
+              placeholder={newTrip.price}
               onChange={(e) =>
                 setNewTrip({ ...newTrip, price: e.target.value })
               }
@@ -197,7 +206,7 @@ const OfferRide = () => {
                   id="datetime-local"
                   label=" Trip Date/Time"
                   type="datetime-local"
-                  defaultValue="2021-01-01T10:30"
+                  defaultValue={trips.tripList.dateTime}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -291,6 +300,7 @@ const OfferRide = () => {
             />
           </Col>
         </Row>
+
         <Row>
           <Col xs={6} md={4}></Col>
           <Col xs={6} md={4}></Col>
@@ -308,7 +318,7 @@ const OfferRide = () => {
               style={{ marginLeft: "5px" }}
               onClick={handleSubmit}
             >
-              Validate
+              Edit
             </Button>
           </Col>
           <br />
@@ -320,4 +330,4 @@ const OfferRide = () => {
   );
 };
 
-export default OfferRide;
+export default UpdateRide;

@@ -11,12 +11,13 @@ import NavBar from "./components/NavBar";
 import FooterBar from "./components/FooterBar";
 import Loading from "./components/Loading";
 import AboutUs from "./components/AboutUs";
+import UpdateRide from "./components/UpdateRide";
 
 import PrivateRoute from "./privateRoutes/privateRoute";
 import PrivateRouteSearch from "./privateRoutes/privateRouteSearch";
 import PrivateRouteOffer from "./privateRoutes/privateRouteOffer";
 
-function App() {
+function App({match}) {
   return (
     <div className="App">
       <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
           <PrivateRoute exact path="/profile" component={ProfilePage} />
           <PrivateRouteSearch exact path="/searchRide" component={SearchRide} />
           <PrivateRouteOffer exact path="/offerRide" component={OfferRide} />
+          <PrivateRouteOffer exact path="/updateRide/:id" match={match} component={UpdateRide} />
         </Switch>
 
         <FooterBar />
