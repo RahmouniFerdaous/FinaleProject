@@ -26,7 +26,7 @@ const UpdateRide = ({ match }) => {
     from_lng: null,
     to_lng: null,
     to_lat: null,
-    CarModel: "",
+    carModel: "",
     price: 0,
     dateTime: "",
     seatingCapacity: 0,
@@ -123,7 +123,6 @@ const UpdateRide = ({ match }) => {
 
   //get the trip before edit
   const id = match.params.id;
-  console.log(id);
   useEffect(() => {
     dispatch(getSelectedTrip(id));
   }, []);
@@ -132,6 +131,8 @@ const UpdateRide = ({ match }) => {
   //update
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(id)
+    console.log(newTrip)
     dispatch(updateTrip(id, newTrip));
     history.push("/profile");
   };

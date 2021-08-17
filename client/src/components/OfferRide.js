@@ -25,7 +25,7 @@ const OfferRide = () => {
     from_lng: null,
     to_lng: null,
     to_lat: null,
-    CarModel: "",
+    carModel: "",
     price: 0,
     dateTime: "",
     seatingCapacity: 0,
@@ -197,7 +197,7 @@ const OfferRide = () => {
                   id="datetime-local"
                   label=" Trip Date/Time"
                   type="datetime-local"
-                  defaultValue="2021-01-01T10:30"
+                  defaultValue={Date.now()}
                   InputLabelProps={{
                     shrink: true,
                   }}

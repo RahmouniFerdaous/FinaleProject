@@ -5,7 +5,7 @@ const config = require("config");
 const { validationResult } = require("express-validator");
 const cloudinary = require("../helpers/cloudinary");
 
-// register
+//Register
 const register = async (req, res) => {
   try {
     //validationCheckMiddeleware
@@ -58,7 +58,7 @@ const register = async (req, res) => {
   }
 };
 
-//login
+//Login
 const login = async (req, res) => {
   try {
     //validationCheckMiddeleware
@@ -99,7 +99,6 @@ const getUserProfile = async (req, res) => {
 };
 
 //Upadted role
-
 const updateRole = async (req, res) => {
   try {
     const updatedRole = await User.findByIdAndUpdate(req.params.id, {...req.body}, {new:true});

@@ -17,6 +17,9 @@ import {
   GET_SELECTED_TRIP_REQUEST,
   GET_SELECTED_TRIP_SUCCESS,
   GET_SELECTED_TRIP_FAILED,
+  PUT_SEATING_CAPACITY_REQUEST,
+  PUT_SEATING_CAPACITY_SUCCESS,
+  PUT_SEATING_CAPACITY_FAILED,
   PUT_TRIP_REQUEST,
   PUT_TRIP_SUCCESS,
   PUT_TRIP_FAILED,
@@ -134,6 +137,28 @@ export const getSelectedTrip = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: GET_SELECTED_TRIP_FAILED,
+      payload: err.response.data.errors,
+    });
+  }
+};
+
+export const updateSeatingCapacity = (id, info) => async (dispatch) => {
+  dispatch({ type: PUT_SEATING_CAPACITY_REQUEST });
+  try {
+    setToken(); // receive the tokenn from the localStorage
+
+    const { data } = await axios.put(
+      `${prefix}/api/trip/updateSeatingCapacity/${id}`,
+      info
+    );
+    dispatch({
+      type: PUT_SEATING_CAPACITY_SUCCESS,
+      payload: data,
+    });
+    alert("Trip Reserved!");
+  } catch (err) {
+    dispatch({
+      type: PUT_SEATING_CAPACITY_FAILED,
       payload: err.response.data.errors,
     });
   }

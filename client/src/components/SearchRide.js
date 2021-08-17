@@ -155,7 +155,7 @@ const SearchRide = () => {
             <TextField
               id="date"
               type="date"
-              defaultValue="2021-01-01"
+              defaultValue={Date.now()}
               InputLabelProps={{
                 shrink: true,
               }}

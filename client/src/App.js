@@ -12,6 +12,7 @@ import FooterBar from "./components/FooterBar";
 import Loading from "./components/Loading";
 import AboutUs from "./components/AboutUs";
 import UpdateRide from "./components/UpdateRide";
+import ReserveRide from "./components/ReserveRide";
 
 import PrivateRoute from "./privateRoutes/privateRoute";
 import PrivateRouteSearch from "./privateRoutes/privateRouteSearch";
@@ -31,6 +32,7 @@ function App({match}) {
           <Route exact path="/aboutUs" component={AboutUs} />
           <PrivateRoute exact path="/profile" component={ProfilePage} />
           <PrivateRouteSearch exact path="/searchRide" component={SearchRide} />
+          <PrivateRouteSearch exact path="/reserveRide/:id" match={match} component={ReserveRide} />
           <PrivateRouteOffer exact path="/offerRide" component={OfferRide} />
           <PrivateRouteOffer exact path="/updateRide/:id" match={match} component={UpdateRide} />
         </Switch>

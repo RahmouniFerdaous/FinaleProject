@@ -12,6 +12,9 @@ import {
   GET_SELECTED_TRIP_REQUEST,
   GET_SELECTED_TRIP_SUCCESS,
   GET_SELECTED_TRIP_FAILED,
+  PUT_SEATING_CAPACITY_REQUEST,
+  PUT_SEATING_CAPACITY_SUCCESS,
+  PUT_SEATING_CAPACITY_FAILED,
   PUT_TRIP_REQUEST,
   PUT_TRIP_SUCCESS,
   PUT_TRIP_FAILED,
@@ -32,6 +35,7 @@ const tripReducer = (state = initState, { type, payload }) => {
     case GET_ALL_TRIP_REQUEST:
     case FIND_TRIPS_REQUEST:
     case GET_SELECTED_TRIP_REQUEST:
+    case PUT_SEATING_CAPACITY_REQUEST:
     case PUT_TRIP_REQUEST:
     case DELETE_TRIP_REQUEST:
       return {
@@ -47,6 +51,7 @@ const tripReducer = (state = initState, { type, payload }) => {
     case GET_TRIP_SUCCESS:
     case GET_ALL_TRIP_SUCCESS:
     case GET_SELECTED_TRIP_SUCCESS:
+    case PUT_SEATING_CAPACITY_SUCCESS:
     case PUT_TRIP_SUCCESS:
     case DELETE_TRIP_SUCCESS:
       return {
@@ -66,6 +71,7 @@ const tripReducer = (state = initState, { type, payload }) => {
     case GET_ALL_TRIP_FAILED:
     case FIND_TRIPS_FAILED:
     case GET_SELECTED_TRIP_FAILED:
+    case PUT_SEATING_CAPACITY_FAILED:
     case PUT_TRIP_FAILED:
     case DELETE_TRIP_FAILED:
       return {

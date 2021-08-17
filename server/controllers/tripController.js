@@ -3,7 +3,6 @@ const { validationResult } = require("express-validator");
 
 
 //Post Trip
-
 const addTrip = async (req, res) => {
   try {
      //validationCheckMiddeleware
@@ -106,7 +105,7 @@ const getMyTrip = async (req, res) => {
   }
 };
 
-//find Trip
+//Find Trip
 const findTrips = async (req, res) => {
   const from = req.query.from;
   const to = req.query.to;
@@ -125,7 +124,7 @@ const findTrips = async (req, res) => {
   }
 };
 
-//get One Trip
+//Get One Trip
 
 const getSelectedTrip = async (req, res) => {
   try {
@@ -142,7 +141,6 @@ const getSelectedTrip = async (req, res) => {
 };
 
 //Upadted Trip
-
 const updateTrip = async (req, res) => {
   try {
     const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, {...req.body}, {new:true});
@@ -173,6 +171,16 @@ const getTripsCount = async (req, res) => {
   }
 };
 
+//Reserve Trip
+const updateSeatingCapacity = async (req, res) => {
+  try {
+    const updatedSeatingCapacity = await Trip.findByIdAndUpdate(req.params.id, {...req.body}, {new:true});
+    res.json(updatedSeatingCapacity );
+  } catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+};
+
 module.exports = {
   addTrip,
   getAllTrips,
@@ -182,4 +190,5 @@ module.exports = {
   updateTrip,
   deleteTrip,
   findTrips,
+  updateSeatingCapacity
 };
