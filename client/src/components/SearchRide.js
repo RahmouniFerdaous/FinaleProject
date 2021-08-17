@@ -16,7 +16,8 @@ import {
   findTrips,
 } from "../redux/actions/tripActions";
 
-// const publicKey=process.env.REACT_APP_MAPBOX_API_KEY;
+const mapBoxToken = process.env.REACT_APP_MAPBOX_API_KEY;
+
 const SearchRide = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -128,7 +129,7 @@ const SearchRide = () => {
           <Col>
             <i class="bi bi-circle"> Depart Point</i>
             <MapboxAutocomplete
-              publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
+              publicKey={mapBoxToken}
               inputClass="form-control search"
               placeholder="From ..."
               onSuggestionSelect={suggestionSelectFrom}
@@ -140,7 +141,7 @@ const SearchRide = () => {
           <Col>
             <i class="bi bi-circle-fill"> Arrival Point</i>
             <MapboxAutocomplete
-              publicKey="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
+              publicKey={mapBoxToken}
               inputClass="form-control search"
               placeholder="To ..."
               onSuggestionSelect={suggestionSelectTo}

@@ -11,7 +11,10 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import ReactMapGL, { Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+const mapBoxToken = process.env.REACT_APP_MAPBOX_API_KEY;
+
 const ReserveRide = ({ match }) => {
+
   //center
   const [viewport, setViewport] = useState({
     width: "100%",
@@ -80,7 +83,7 @@ const ReserveRide = ({ match }) => {
       </div>
       <ReactMapGL
         mapStyle="mapbox://styles/douss/cksb48yml01t417uq1fx3qml0"
-        mapboxApiAccessToken="pk.eyJ1IjoiZG91c3MiLCJhIjoiY2tyZ3h1bGNuMDNteTJvcGVueThzNnZmMiJ9.LhxHYK7IQDlS6VZTSiPu3A"
+        mapboxApiAccessToken={mapBoxToken}
         {...viewport}
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
       >

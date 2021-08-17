@@ -123,7 +123,7 @@ const TripAllDetails = ({ trips }) => {
               </Card.Text>
               <Button
                 variant="success"
-                size="sm"
+                size="lg"
                 href={`/reserveRide/${trip._id}`}
               >
                 Reserve
