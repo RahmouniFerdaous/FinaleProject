@@ -118,16 +118,21 @@ const TripAllDetails = ({ trips }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Card.Text className="text-muted">
-                Seating Available <b>{trip.seatingCapacity}</b>
-              </Card.Text>
-              <Button
-                variant="success"
-                size="lg"
-                href={`/reserveRide/${trip._id}`}
-              >
-                Reserve
-              </Button>
+              <div>
+                <Card.Text className="text-muted">
+                  Seating Available <b>{trip.seatingCapacity}</b>
+                </Card.Text>
+              </div>
+              <div>
+                <Button
+                  style={{ marginTop: "10px" }}
+                  variant="success"
+                  size="lg"
+                  href={`/reserveRide/${trip._id}`}
+                >
+                 Reservation
+                </Button>
+              </div>
             </div>
           </Card.Footer>
         </Card>
