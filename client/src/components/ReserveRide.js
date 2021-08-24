@@ -54,10 +54,10 @@ const ReserveRide = ({ match }) => {
     zoom: 4,
   });
 
-  const [show, setShow] = useState(false);
   //redux
   const dispatch = useDispatch();
   const trips = useSelector((state) => state.trips);
+  const isLoading = useSelector(state => state.trips.isLoading)
   //router dom
   const history = useHistory();
   //componentDidMount
@@ -71,7 +71,6 @@ const ReserveRide = ({ match }) => {
 
   const handleSeatingCapacity = (e) => {
     e.preventDefault();
-    setShow(true);
     if (trips.tripList.seatingCapacity > 0) {
       dispatch(updateSeatingCapacity(id, info));
     } else {
@@ -132,7 +131,7 @@ const ReserveRide = ({ match }) => {
   return (
     <div>
       <div className="sidebar">
-        Country: Tunisia | Trip: From | {from}  | To: {to}
+        Country: Tunisia | Trip: From: ...  {from}  | To: ... {to}
       </div>
       <ReactMapGL
         mapStyle="mapbox://styles/douss/cksb48yml01t417uq1fx3qml0"
@@ -163,7 +162,7 @@ const ReserveRide = ({ match }) => {
           </Col>
           <Col></Col>
           <Col>
-            {show && (
+            {isLoading && (
               <Button variant="danger" disabled>
                 <Spinner
                   as="span"

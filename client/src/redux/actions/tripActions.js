@@ -164,12 +164,12 @@ export const updateSeatingCapacity = (id, info) => async (dispatch) => {
   }
 };
 
-export const updateTrip = (id,newTrip) => async (dispatch) => {
+export const updateTrip = (id, newTrip) => async (dispatch) => {
   dispatch({ type: PUT_TRIP_REQUEST });
   try {
     setToken(); // receive the tokenn from the localStorage
     const { data } = await axios.put(
-      `${prefix}/api/trip/updaterole/${id}`,
+      `${prefix}/api/trip/updatetrip/${id}`,
       newTrip
     );
     dispatch({
