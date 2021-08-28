@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Container, Row, Col, Form, Spinner } from "react-bootstrap";
+import Message from './Message';
 import MapboxAutocomplete from "react-mapbox-autocomplete";
 import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
@@ -13,11 +15,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
-import { useDispatch } from "react-redux";
+
+
 import { addTrip } from "../redux/actions/tripActions";
 
 const OfferRide = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.trips.isLoading);
+  const errors = useSelector((state) => state.trips.errors);
   const [newTrip, setNewTrip] = useState({
     from: "",
     to: "",
@@ -26,9 +31,9 @@ const OfferRide = () => {
     to_lng: null,
     to_lat: null,
     carModel: "",
-    price: 0,
+    price: null,
     dateTime: "",
-    seatingCapacity: 0,
+    seatingCapacity: null,
     tripGender: "",
     luggage: false,
     music: false,
@@ -126,7 +131,6 @@ const OfferRide = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addTrip(newTrip));
-    history.push("/profile");
   };
 
   return (
@@ -150,6 +154,11 @@ const OfferRide = () => {
         >
           Publish a CarPooling
         </Typography>
+
+        {errors && (
+         <Message errors={errors}/>
+        )}
+
         <br />
         <Row>
           <Col xs={6}>
@@ -175,6 +184,7 @@ const OfferRide = () => {
 
             <Form.Control
               name="carModel"
+              required="required"
               type="text"
               placeholder="Car Model"
               onChange={(e) =>
@@ -184,6 +194,7 @@ const OfferRide = () => {
             <br />
             <Form.Control
               name="price"
+              required="required"
               type="text"
               placeholder="Price by place (DT)"
               onChange={(e) =>
@@ -301,11 +312,22 @@ const OfferRide = () => {
               onClick={() => history.goBack()}
             >
               Go Back
-            </Button>
+            </Button>{" "}
+            {isLoading && (
+              <Button variant="danger" disabled>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="visually-hidden">Loading...</span>
+              </Button>
+            )}{" "}
             <Button
               variant="contained"
               color="secondary"
-              style={{ marginLeft: "5px" }}
               onClick={handleSubmit}
             >
               Validate

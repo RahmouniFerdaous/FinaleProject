@@ -10,6 +10,7 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
+import SpinnerPage from "./SpinnerPage";
 import Typography from "@material-ui/core/Typography";
 
 import { getProfile } from "../redux/actions/authActions";
@@ -26,6 +27,7 @@ const ProfilePage = () => {
   const auth = useSelector((state) => state.auth);
   const trips = useSelector((state) => state.trips);
   const count = useSelector((state) => state.trips.count);
+  const isLoading = useSelector((state) => state.trips.isLoading);
   //Pagination
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(3);
@@ -93,6 +95,8 @@ const ProfilePage = () => {
           </Col>
           <Col sm={10}>
             <Typography>Your CarPooling Suggestions List ...</Typography>
+            {" "}
+        {isLoading && <SpinnerPage />}{" "}
             <Container
               style={{
                 display: "flex",
@@ -102,7 +106,8 @@ const ProfilePage = () => {
             >
               {trips.tripList.length &&
                 trips.tripList.map((trip, index) => (
-                  <Card
+                  <Card 
+                    key={index}
                     style={{
                       marginLeft: "10px",
                       flex: "0 0 215px",

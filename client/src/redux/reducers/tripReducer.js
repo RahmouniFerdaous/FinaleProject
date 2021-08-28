@@ -1,4 +1,7 @@
 import {
+  ADD_TRIP_REQUEST,
+  ADD_TRIP_SUCCESS,
+  ADD_TRIP_FAILED,
   GET_TRIP_REQUEST,
   GET_TRIP_SUCCESS,
   GET_TRIP_FAILED,
@@ -31,6 +34,7 @@ const initState = {
 
 const tripReducer = (state = initState, { type, payload }) => {
   switch (type) {
+    case ADD_TRIP_REQUEST:
     case GET_TRIP_REQUEST:
     case GET_ALL_TRIP_REQUEST:
     case FIND_TRIPS_REQUEST:
@@ -48,6 +52,7 @@ const tripReducer = (state = initState, { type, payload }) => {
         ...state,
         count: payload.count,
       };
+    case ADD_TRIP_SUCCESS:
     case GET_TRIP_SUCCESS:
     case GET_ALL_TRIP_SUCCESS:
     case GET_SELECTED_TRIP_SUCCESS:
@@ -66,7 +71,7 @@ const tripReducer = (state = initState, { type, payload }) => {
         isLoading: false,
         count: payload.length,
       };
-
+    case ADD_TRIP_FAILED:
     case GET_TRIP_FAILED:
     case GET_ALL_TRIP_FAILED:
     case FIND_TRIPS_FAILED:

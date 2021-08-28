@@ -1,67 +1,69 @@
-import React , {useState,useEffect} from 'react'
-import  {useDispatch,useSelector} from 'react-redux'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-import {login} from '../redux/actions/authActions';
+import { Alert } from "react-bootstrap";
 
+import { login } from "../redux/actions/authActions";
 
-
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-  }));
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const LoginPage = () => {
-    const classes = useStyles();
-    //local state
-    const [info,setInfo] = useState({
-      email:"",
-      password:""
-    })
-    // selector state 
-    const auth = useSelector(state => state.auth)
-    // dispatch action
-    const dispatch = useDispatch()
-    // submit action
-    const handleChange = (e) => {
-    e.preventDefault()
-    dispatch(login(info))  
-    }
-    //useEffect render if isAuth is changed
-    const history=useHistory()
-    useEffect(() => {
-      if (auth.isAuth)
-      history.push('/')
-    }, [auth.isAuth])
-    return (
-            <Container component="main" maxWidth="xs">
+  const classes = useStyles();
+  //local state
+  const [info, setInfo] = useState({
+    email: "",
+    password: "",
+  });
+  // selector state
+  const auth = useSelector((state) => state.auth);
+  const errors = useSelector((state) => state.auth.errors);
+
+  // dispatch action
+  const dispatch = useDispatch();
+  // submit action
+  const handleChange = (e) => {
+    e.preventDefault();
+    dispatch(login(info));
+  };
+  //useEffect render if isAuth is changed
+  const history = useHistory();
+  useEffect(() => {
+    if (auth.isAuth) history.push("/");
+  }, [auth.isAuth]);
+
+  return (
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -70,6 +72,15 @@ const LoginPage = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+
+        {errors && (
+          <Alert variant="danger">
+            {errors[0]? errors[0].msg : null} <br/>
+            {errors.email ? errors.email.msg : null} <br/>
+            {errors.password ? errors.password.msg : null} <br/>
+          </Alert>
+        )}
+      
         <form className={classes.form} noValidate onSubmit={handleChange}>
           <TextField
             variant="outlined"
@@ -80,7 +91,7 @@ const LoginPage = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
-            onChange={(e)=>setInfo({...info,email:e.target.value})}
+            onChange={(e) => setInfo({ ...info, email: e.target.value })}
             autoFocus
           />
           <TextField
@@ -93,7 +104,7 @@ const LoginPage = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(e)=>setInfo({...info,password:e.target.value})}
+            onChange={(e) => setInfo({ ...info, password: e.target.value })}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -123,8 +134,7 @@ const LoginPage = () => {
         </form>
       </div>
     </Container>
-        
-    )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

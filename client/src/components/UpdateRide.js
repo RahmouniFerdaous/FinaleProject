@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form } from "react-bootstrap";
+import Message from "./Message";
+import SpinnerPage from "./SpinnerPage";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
 import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
@@ -19,6 +21,8 @@ import { getSelectedTrip, updateTrip } from "../redux/actions/tripActions";
 const UpdateRide = ({ match }) => {
   const dispatch = useDispatch();
   const trips = useSelector((state) => state.trips);
+  const isLoading = useSelector((state) => state.trips.isLoading);
+  const errors = useSelector((state) => state.trips.errors);
   const [newTrip, setNewTrip] = useState({
     from: "",
     to: "",
@@ -27,9 +31,9 @@ const UpdateRide = ({ match }) => {
     to_lng: null,
     to_lat: null,
     carModel: "",
-    price: 0,
+    price: null,
     dateTime: "",
-    seatingCapacity: 0,
+    seatingCapacity: null,
     tripGender: "",
     luggage: false,
     music: false,
@@ -126,17 +130,13 @@ const UpdateRide = ({ match }) => {
   useEffect(() => {
     dispatch(getSelectedTrip(id));
   }, []);
-   //router dom
-   const history = useHistory();
+  //router dom
+  const history = useHistory();
   //update
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(id)
-    console.log(newTrip)
     dispatch(updateTrip(id, newTrip));
-    history.push("/profile");
   };
-
 
   return (
     <div>
@@ -159,8 +159,10 @@ const UpdateRide = ({ match }) => {
         >
           Edit your CarPooling
         </Typography>
-        <br />
 
+        {errors && <Message errors={errors} />}
+
+        <br />
         <Row>
           <Col xs={6}>
             <MapboxAutocomplete
@@ -312,11 +314,11 @@ const UpdateRide = ({ match }) => {
               onClick={() => history.goBack()}
             >
               Go Back
-            </Button>
+            </Button>{" "}
+            {isLoading && <SpinnerPage />}{" "}
             <Button
               variant="contained"
               color="secondary"
-              style={{ marginLeft: "5px" }}
               onClick={handleSubmit}
             >
               Edit

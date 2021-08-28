@@ -125,7 +125,6 @@ const findTrips = async (req, res) => {
 };
 
 //Get One Trip
-
 const getSelectedTrip = async (req, res) => {
   try {
     const selectedTrip = await Trip.findOne({ _id: req.params.id})
@@ -140,9 +139,14 @@ const getSelectedTrip = async (req, res) => {
   }
 };
 
-//Upadted Trip
+//Update Trip
 const updateTrip = async (req, res) => {
   try {
+     //validationCheckMiddeleware
+     const errors = validationResult(req);
+     if (!errors.isEmpty())
+     return res.status(400).json({ errors: errors.mapped() });
+     //update
     const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, {...req.body}, {new:true});
     res.json(updatedTrip);
   } catch (err) {

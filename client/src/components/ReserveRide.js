@@ -6,8 +6,8 @@ import {
   updateSeatingCapacity,
 } from "../redux/actions/tripActions";
 
-import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
-
+import { Container, Row, Col, Button } from "react-bootstrap";
+import SpinnerPage from "./SpinnerPage";
 
 import ReactMapGL, {
   Source,
@@ -57,7 +57,7 @@ const ReserveRide = ({ match }) => {
   //redux
   const dispatch = useDispatch();
   const trips = useSelector((state) => state.trips);
-  const isLoading = useSelector(state => state.trips.isLoading)
+  const isLoading = useSelector((state) => state.trips.isLoading);
   //router dom
   const history = useHistory();
   //componentDidMount
@@ -131,7 +131,7 @@ const ReserveRide = ({ match }) => {
   return (
     <div>
       <div className="sidebar">
-        Country: Tunisia | Trip: From: ...  {from}  | To: ... {to}
+        Country: Tunisia | Trip: From: ... {from} | To: ... {to}
       </div>
       <ReactMapGL
         mapStyle="mapbox://styles/douss/cksb48yml01t417uq1fx3qml0"
@@ -162,18 +162,7 @@ const ReserveRide = ({ match }) => {
           </Col>
           <Col></Col>
           <Col>
-            {isLoading && (
-              <Button variant="danger" disabled>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Loading...</span>
-              </Button>
-            )}{" "}
+            {isLoading && <SpinnerPage />}{"  "}
             <Button variant="danger" size="lg" onClick={handleSeatingCapacity}>
               Reserve Now!
             </Button>

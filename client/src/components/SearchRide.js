@@ -6,7 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import { Pagination } from "@material-ui/lab";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import SpinnerPage from "./SpinnerPage";
 import TripAllDetails from "./TripAllDetails";
 
 import { updateRole } from "../redux/actions/authActions";
@@ -189,23 +190,18 @@ const SearchRide = () => {
           </Col>
         </Row>
       </Container>
-
-      <Container
-        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-      >
-        {isLoading && (
-          <Spinner
-            style={{ marginTop: "10px" }}
-            animation="border"
-            variant="danger"
-            role="status"
-          >
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        )}
-
-        {trips.tripList.length && <TripAllDetails trips={trips} />}
-        
+      <Container>
+        {isLoading && <SpinnerPage />}
+        <br />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          {trips.tripList.length && <TripAllDetails trips={trips} />}
+        </div>
       </Container>
       <Container>
         <Row>

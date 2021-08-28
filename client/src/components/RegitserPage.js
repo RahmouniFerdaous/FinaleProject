@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Alert } from "react-bootstrap";
 
 import { register } from "../redux/actions/authActions";
 
@@ -68,6 +69,7 @@ const RegitserPage = () => {
   };
   // selector state
   const auth = useSelector((state) => state.auth);
+  const errors = useSelector((state) => state.auth.errors);
   // dispatch action
   const dispatch = useDispatch();
   // submit action
@@ -91,6 +93,20 @@ const RegitserPage = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+      
+        {errors && (
+          <Alert variant="danger">
+            {errors[0]? errors[0].msg : null} <br/>
+            {errors.firstName ? errors.firstName.msg : null} <br/>
+            {errors.lastName ? errors.lastName.msg : null} <br/>
+            {errors.email ? errors.email.msg : null} <br/>
+            {errors.password ? errors.password.msg : null} <br/>
+            {errors.age ? errors.age.msg : null} <br/>
+            {errors.phone ? errors.phone.msg : null} <br/>
+            {errors.profilePic ? errors.profilePic.msg : null} 
+          </Alert>
+        )}
+
         <form className={classes.form} noValidate onSubmit={handleChange}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -150,6 +166,7 @@ const RegitserPage = () => {
                 autoComplete="age"
                 name="age"
                 variant="outlined"
+                required
                 fullWidth
                 id="age"
                 label="Age"
@@ -159,6 +176,7 @@ const RegitserPage = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
+                required
                 fullWidth
                 id="phone"
                 label="Phone"

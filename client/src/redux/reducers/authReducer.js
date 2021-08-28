@@ -104,7 +104,7 @@ const authReducer = (state = initState, { type, payload }) => {
         ...state,
         isLoading: false,
         isAuth: false,
-        errors: payload.errors,
+        errors: payload,
         token: null,
       };
 
