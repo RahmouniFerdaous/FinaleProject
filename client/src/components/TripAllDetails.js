@@ -17,7 +17,7 @@ const TripAllDetails = ({ trips }) => {
           border="danger"
         >
           <Card.Header>
-            Carpooling at <b>{trip.dateTime}</b>
+            Carpooling at <b><i class="bi bi-clock"></i> {trip.dateTime.toString().slice(11,16)} | <i class="bi bi-calendar-week"></i> {trip.dateTime.toString().slice(0,10)}</b>
           </Card.Header>
           <Card.Body>
             <Row>

@@ -107,11 +107,13 @@ const getMyTrip = async (req, res) => {
 
 //Find Trip
 const findTrips = async (req, res) => {
+
   const from = req.query.from;
   const to = req.query.to;
+  const dateTime = req.query.dateTime;
 
   try {
-    const resultSearch = await Trip.find({ from, to })
+    const resultSearch = await Trip.find({ from, to, dateTime:{ $gte: dateTime } }) 
       .select({ __v: 0 })
       .sort({ dateTime: -1 })
       .populate({

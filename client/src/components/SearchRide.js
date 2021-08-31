@@ -22,6 +22,7 @@ const mapBoxToken = process.env.REACT_APP_MAPBOX_API_KEY;
 const SearchRide = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [dateTime,setDateTime] = useState(null);
   const [fromCoordinate, setFromCoordinate] = useState({
     lat: null,
     lng: null,
@@ -74,7 +75,7 @@ const SearchRide = () => {
   //find
   const handleSearch = (e) => {
     e.preventDefault();
-    dispatch(findTrips(from, to));
+    dispatch(findTrips(from, to, dateTime));
   };
   //reset
   const handleReset = (e) => {
@@ -82,7 +83,7 @@ const SearchRide = () => {
     dispatch(getTripCount());
     dispatch(getAllTrips(page, limit));
   };
-
+ 
   return (
     <div>
       <Container
@@ -154,14 +155,17 @@ const SearchRide = () => {
           </Col>
           <Col>
             <i class="bi bi-calendar-week"> Date of departure</i>
-            <br />
+            <br/>
             <TextField
-              id="date"
-              type="date"
+              id="datetime-local"
+              type="datetime-local"
               defaultValue={Date.now()}
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e) =>
+                setDateTime(e.target.value) 
+              }
             />
           </Col>
         </Row>

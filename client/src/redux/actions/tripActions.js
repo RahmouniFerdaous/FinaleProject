@@ -89,11 +89,11 @@ export const getAllTrips = (page, limit) => async (dispatch) => {
 };
 
 
-export const findTrips = (from, to) => async (dispatch) => {
+export const findTrips = (from, to, dateTime) => async (dispatch) => {
   dispatch({ type: FIND_TRIPS_REQUEST });
   try {
     const { data } = await axios.get(
-      `${prefix}/api/trip/findtrips?from=${from}&to=${to}`
+      `${prefix}/api/trip/findtrips?from=${from}&to=${to}&dateTime=${dateTime}`
     );
     dispatch({
       type: FIND_TRIPS_SUCCESS,
