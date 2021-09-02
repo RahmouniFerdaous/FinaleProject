@@ -8,10 +8,13 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
-  LOGOUT,
   PUT_ROLE_REQUEST,
   PUT_ROLE_SUCCESS,
   PUT_ROLE_FAILED,
+  PUT_PROFILE_REQUEST,
+  PUT_PROFILE_SUCCESS,
+  PUT_PROFILE_FAILED,
+  LOGOUT,
 } from "../actions/authTypes";
 import axios from "axios";
 import { prefix } from "../../helpers/constant";
@@ -53,11 +56,13 @@ export const register = (info) => async (dispatch) => {
     });
   }
 };
+
 //asynchrone fct getProfile
 export const getProfile = () => async (dispatch) => {
   dispatch({ type: GET_PROFILE_REQUEST });
   try {
     setToken(); // receive the tokenn from the localStorage
+    //api
     const { data } = await axios.get(`${prefix}/api/user/getProfile`);
     dispatch({
       type: GET_PROFILE_SUCCESS,
@@ -71,11 +76,35 @@ export const getProfile = () => async (dispatch) => {
   }
 };
 
+//editProfile fct
+export const editProfile = (id, info) => async (dispatch) => {
+  dispatch({ type: PUT_PROFILE_REQUEST });
+  try {
+    setToken(); // receive the tokenn from the localStorage
+    //api
+    const { data } = await axios.put(
+      `${prefix}/api/user/editprofile/${id}`,
+      info
+    );
+    dispatch({
+      type: PUT_PROFILE_SUCCESS,
+      payload: data,
+    });
+    alert("Profile Edited!");
+  } catch (err) {
+    dispatch({
+      type: PUT_PROFILE_FAILED,
+      payload: err.response.data.errors,
+    });
+  }
+};
+
+//updateRole fct
 export const updateRole = (id, info) => async (dispatch) => {
   dispatch({ type: PUT_ROLE_REQUEST });
   try {
     setToken(); // receive the tokenn from the localStorage
-
+    //api
     const { data } = await axios.put(
       `${prefix}/api/user/updaterole/${id}`,
       info
@@ -93,6 +122,7 @@ export const updateRole = (id, info) => async (dispatch) => {
   }
 };
 
+//logout fct
 export const logout = () => {
   return {
     type: LOGOUT,

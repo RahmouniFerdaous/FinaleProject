@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Compressor from "compressorjs";
-import { Form } from "react-bootstrap";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -51,6 +50,7 @@ const RegitserPage = () => {
     phone: "",
     ProfilePic: null,
   });
+  //compressor
   const handleImageChange = (e) => {
     if (e.target.files.length) {
       const myImage = e.target.files[0];
@@ -82,7 +82,7 @@ const RegitserPage = () => {
   useEffect(() => {
     if (auth.isRegistred) history.push("/login");
   }, [auth.isRegistred]);
-  console.log(info);
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -93,17 +93,17 @@ const RegitserPage = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-      
+
         {errors && (
           <Alert variant="danger">
-            {errors[0]? errors[0].msg : null} <br/>
-            {errors.firstName ? errors.firstName.msg : null} <br/>
-            {errors.lastName ? errors.lastName.msg : null} <br/>
-            {errors.email ? errors.email.msg : null} <br/>
-            {errors.password ? errors.password.msg : null} <br/>
-            {errors.age ? errors.age.msg : null} <br/>
-            {errors.phone ? errors.phone.msg : null} <br/>
-            {errors.profilePic ? errors.profilePic.msg : null} 
+            {errors[0] ? errors[0].msg : null} <br />
+            {errors.firstName ? errors.firstName.msg : null} <br />
+            {errors.lastName ? errors.lastName.msg : null} <br />
+            {errors.email ? errors.email.msg : null} <br />
+            {errors.password ? errors.password.msg : null} <br />
+            {errors.age ? errors.age.msg : null} <br />
+            {errors.phone ? errors.phone.msg : null} <br />
+            {errors.profilePic ? errors.profilePic.msg : null}
           </Alert>
         )}
 
@@ -189,8 +189,8 @@ const RegitserPage = () => {
               <img
                 name="image"
                 alt="profile pic"
-                width="250"
-                height="280"
+                width="150"
+                height="150"
                 src={selectedImage || "/images/avatar.jpg"}
               />
               <br />

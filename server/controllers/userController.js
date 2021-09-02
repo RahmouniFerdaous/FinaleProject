@@ -89,6 +89,7 @@ const login = async (req, res) => {
   }
 };
 
+//Get Profile
 const getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.userId).select({ password: 0, _v: 0 }); //user password not select('-password)
@@ -97,6 +98,29 @@ const getUserProfile = async (req, res) => {
     res.status(500).json({ errors: [{ msg: err.message }] });
   }
 };
+
+//Edit profile
+const editProfile = async (req,res) => {
+  try {
+   //profile pic saved on cloudinary
+   if (req.body.profilePic) {
+    const savedImage = await cloudinary.uploader.upload(req.body.profilePic, {
+      timeout: 60000,
+      upload_preset: "car-pool-app",
+    });
+    console.log(savedImage);
+    req.body.profilePic = {
+      url: savedImage.url,
+      public_id: savedImage.public_id,
+    };
+  }
+    const updatedProfile = await User.findByIdAndUpdate(req.params.id,{...req.body}, {new:true});
+    res.json(updatedProfile);
+  }
+  catch (err) {
+    res.status(500).json({ errors: [{ msg: err.message }] });
+  }
+}
 
 //Upadted role
 const updateRole = async (req, res) => {
@@ -108,4 +132,5 @@ const updateRole = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getUserProfile, updateRole };
+
+module.exports = { register, login, getUserProfile, editProfile, updateRole };

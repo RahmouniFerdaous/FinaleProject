@@ -8,10 +8,13 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
-  LOGOUT,
   PUT_ROLE_REQUEST,
   PUT_ROLE_SUCCESS,
   PUT_ROLE_FAILED,
+  PUT_PROFILE_REQUEST,
+  PUT_PROFILE_SUCCESS,
+  PUT_PROFILE_FAILED,
+  LOGOUT,
 } from "../actions/authTypes";
 
 import {
@@ -34,6 +37,7 @@ const authReducer = (state = initState, { type, payload }) => {
     case LOGIN_REQUEST:
     case REGISTER_REQUEST:
     case GET_PROFILE_REQUEST:
+    case PUT_PROFILE_REQUEST:
     case PUT_ROLE_REQUEST:
     case GET_TRIP_REQUEST:
       return {
@@ -78,6 +82,14 @@ const authReducer = (state = initState, { type, payload }) => {
         isLoading: false,
         user: payload,
       };
+    case PUT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isRegistred: true,
+        isAuth: true,
+        user: payload,
+      };
     case PUT_ROLE_SUCCESS:
       return {
         ...state,
@@ -100,6 +112,7 @@ const authReducer = (state = initState, { type, payload }) => {
     case GET_PROFILE_FAILED:
     case GET_TRIP_FAILED:
     case PUT_ROLE_FAILED:
+    case PUT_PROFILE_FAILED:
       return {
         ...state,
         isLoading: false,

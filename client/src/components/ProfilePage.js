@@ -85,7 +85,7 @@ const ProfilePage = () => {
                 <ListGroupItem>☏ {auth.user.phone}</ListGroupItem>
               </ListGroup>
               <Card.Body>
-                <Card.Link href="#">Edit</Card.Link>
+                <Card.Link href="/editProfile">Edit</Card.Link>
                 {auth.isAuth && auth.user && auth.user.role !== "driver" && (
                   <Card.Link href="/searchRide">Become a Driver?</Card.Link>
                 )}

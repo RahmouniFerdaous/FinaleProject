@@ -5,6 +5,7 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegitserPage";
 import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
+import EditProfile from "./components/EditProfile";
 import SearchRide from "./components/SearchRide";
 import OfferRide from "./components/OfferRide";
 import NavBar from "./components/NavBar";
@@ -31,6 +32,7 @@ function App({match}) {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/aboutUs" component={AboutUs} />
           <PrivateRoute exact path="/profile" component={ProfilePage} />
+          <PrivateRoute exact path="/editProfile" component={EditProfile} />
           <PrivateRouteSearch exact path="/searchRide" component={SearchRide} />
           <PrivateRouteSearch exact path="/reserveRide/:id" match={match} component={ReserveRide} />
           <PrivateRouteOffer exact path="/offerRide" component={OfferRide} />
